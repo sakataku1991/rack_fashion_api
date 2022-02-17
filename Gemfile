@@ -8,13 +8,12 @@ gem 'rails', '~> 6.1.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
+# アプリケーションサーバー・Webサーバーとして働くやつ『Puma』
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -25,6 +24,18 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
+# コンソールの出力結果を見やすく表示する
+gem 'hirb', '~> 0.7.3'
+
+# Hirbの文字列補正を行なう
+gem 'hirb-unicode-steakknife', '~> 0.0.9'
+
+# パスワードを暗号化する
+gem 'bcrypt', '~> 3.1', '>= 3.1.16'
+
+# JSONファイルの加工
+gem 'active_model_serializers', '~> 0.10.13'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -34,6 +45,19 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem 'capybara',                 '3.28.0'
+  gem 'selenium-webdriver',       '3.142.4'
+  gem 'webdrivers',               '4.1.2'
+  gem 'rails-controller-testing', '1.0.4'
+  # テスト結果に赤／緑の色を付ける
+  gem 'minitest',                 '5.15.0'
+  gem 'minitest-reporters', '~> 1.4', '>= 1.4.3'
+  # ファイルの変更を監視し、自動的にテストを実行する
+  gem 'guard',                    '2.16.2'
+  gem 'guard-minitest',           '2.4.6'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
