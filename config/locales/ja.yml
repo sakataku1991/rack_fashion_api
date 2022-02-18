@@ -141,8 +141,8 @@ ja:
       greater_than_or_equal_to: は%{count}以上の値にしてください
       inclusion: は一覧にありません
       invalid: は不正な値です
-      invalid_rack_id: は半角英数字・アンダーバーが使えます
-      invalid_password: は半角英数字・ハイフン・アンダーバーが使えます
+      invalid_rack_id: は半角英数字・アンダースコアが使えます
+      invalid_password: は半角英数字・ハイフン・アンダースコアが使えます
       less_than: は%{count}より小さい値にしてください
       less_than_or_equal_to: は%{count}以下の値にしてください
       model_invalid: 'バリデーションに失敗しました: %{errors}'
