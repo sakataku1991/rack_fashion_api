@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      # api test action
-      resources :hello, only:[:index]
+
+      # 「ユーザー」「users_controller.rb」
+      resources :users, only:[:index]
+
     end
   end
 end
