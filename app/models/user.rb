@@ -5,6 +5,9 @@ require "validator/email_validator"
 
 class User < ApplicationRecord
 
+  # Token生成モジュール
+  include TokenGenerateService
+
   # 「RACK ID」と「メールアドレス」の小文字化
   before_validation :downcase_rack_id
   before_validation :downcase_email
