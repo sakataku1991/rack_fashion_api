@@ -1,6 +1,10 @@
 class Api::V1::UsersController < ApplicationController
 
-  # ユーザーの一覧の取得
+  # 有効なアクセストークンが投げられない限り、リソースにアクセスできないようになるアクション
+  # ログイン済みのユーザーにしかアクセスさせたくないリソースには以下のメソッドを使用すること！
+  # before_action :authenticate_active_user
+
+  # 「ユーザー」の一覧の取得
   def index
     users = User.all
     render json:
