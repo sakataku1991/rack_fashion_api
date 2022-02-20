@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
 
   # 有効なアクセストークンが投げられない限り、リソースにアクセスできないようになるアクション
-  # ログイン済みのユーザーにしかアクセスさせたくないリソースにはこのメソッドを使用すること！
+  # ログイン済みのユーザーにしかアクセスさせたくないリソースには以下のメソッドを使用すること！
   # before_action :authenticate_active_user
 
   # ユーザーの一覧の取得
