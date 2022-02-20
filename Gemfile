@@ -33,6 +33,10 @@ gem 'hirb-unicode-steakknife', '~> 0.0.9'
 # パスワードを暗号化する
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 
+# JWT
+# Doc: https://rubygems.org/gems/jwt
+gem 'jwt', '~> 2.3'
+
 # JSONファイルの加工
 gem 'active_model_serializers', '~> 0.10.13'
 
