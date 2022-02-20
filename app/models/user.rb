@@ -110,6 +110,11 @@ class User < ApplicationRecord
     update!(refresh_jti: nil)
   end
 
+  # 共通のJSONレスポンスを返すメソッド
+  def response_json(payload = {})
+    as_json(only: [:id, :name, :rack_id]).merge(payload).with_indifferent_access
+  end
+
   private
 
     # 「RACK ID」の小文字化
