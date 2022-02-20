@@ -105,7 +105,7 @@ class Api::V1::AuthTokenController < ApplicationController
     encode_access_token.payload[:sub]
   end
 
-  # 404ヘッダーのみの返却を行なう
+  # 404ヘッダーのみの返却を行う
   # Doc: https://gist.github.com/mlanett/a31c340b132ddefa9cca
   def not_found
     head(:not_found)
