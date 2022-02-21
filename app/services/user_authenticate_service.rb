@@ -6,10 +6,9 @@ module UserAuthenticateService
     current_user.present? || unauthorized_user
   end
 
-  # 保護リソースには認証・認可を行うこちらのメソッドを使用する
-  # 認証 & 認可（トークンの持ち主 && メール認証ユーザーを判定）
+  # 保護リソースには認証・認可を行なうこちらのメソッドを使用
+  # 認証＆認可（トークンの持ち主 && メール認証ユーザーを判定）
   # 認証済み && メール認証済みのユーザーが居ればtrue、存在しない場合は401を返す
-  # ログイン済みのユーザーにしかアクセスさせたくないリソースにはこのメソッドを使用すること！
   def authenticate_active_user
     (current_user.present? && current_user.activated?) || unauthorized_user
   end
@@ -25,7 +24,7 @@ module UserAuthenticateService
     def fetch_user_from_access_token
       User.from_access_token(token_from_request_headers)
     rescue UserAuth.not_found_exception_class,
-      JWT::DecodeError, JWT::EncodeError
+           JWT::DecodeError, JWT::EncodeError
       nil
     end
 

@@ -81,7 +81,7 @@ module UserAuth
       # default: https://www.rubydoc.info/github/jwt/ruby-jwt/master/JWT/DefaultOptions
       def verify_claims
         {
-          verify_expiration: true,           # 有効期限の検証をするか（必須）
+          verify_expiration: true,           # 有効期限の検証するか（必須）
           verify_jti: proc { |jti, payload|  # jtiとセッションIDの検証
             verify_jti?(jti, payload)
           },

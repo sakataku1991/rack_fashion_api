@@ -1,7 +1,5 @@
 module TokenGenerateService
-  # include時の初期化処理の実行場所（include先のオブジェクト）
   def self.included(base)
-    # include時にクラスメソッドを追加する
     base.extend ClassMethods
   end
 

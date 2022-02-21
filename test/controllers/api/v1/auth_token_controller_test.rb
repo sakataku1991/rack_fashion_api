@@ -1,5 +1,5 @@
 # テスト成功要件
-# cookies[]の操作にはapplication.rbにCookieを処理するmeddlewareを追加
+# cookies[]を操作するためにapplication.rbにCookieを処理するmeddlewareを追加
 require "test_helper"
 
 class Api::V1::AuthTokenControllerTest < ActionDispatch::IntegrationTest
@@ -66,7 +66,7 @@ class Api::V1::AuthTokenControllerTest < ActionDispatch::IntegrationTest
     cookie = @request.cookie_jar.
              instance_variable_get(:@set_cookies)[@session_key]
 
-    # expiresは想定通りか（1秒許容）
+    # expiresは想定通りか(1秒許容)
     assert_in_delta Time.at(refresh_lifetime_to_i),
                     cookie[:expires],
                     1.seconds
@@ -92,20 +92,22 @@ class Api::V1::AuthTokenControllerTest < ActionDispatch::IntegrationTest
     assert_equal refresh_lifetime_to_i, refresh_token.payload["exp"]
   end
 
-  # 無効なログイン
+  # 無効なログイン情報が送信された時のログイン拒否機能
   test "invalid_login_from_create_action" do
     # 不正なユーザーの場合
     pass = "password"
     invalid_params = {
       auth: {
+        # メールアドレスは正しいが
         email: @user.email,
+        # パスワードが間違っているユーザー
         password: pass + "a"
       }
     }
     login(invalid_params)
     response_check_of_invalid_request 404
 
-    # アクティブユーザーでない場合
+    # アクティブユーザーでない（まだ会員登録が完了していないユーザーの）場合
     inactive_user = User.create(
       name: "a",
       rack_id: "aaa",
@@ -186,7 +188,7 @@ class Api::V1::AuthTokenControllerTest < ActionDispatch::IntegrationTest
     cookies[@session_key] = old_refresh_token
     assert_not cookies[@session_key].blank?
 
-    # 1つ目のブラウザ（古いrefresh_token）でアクセスした時にエラーを吐いているか
+    # 1つ目のブラウザ（古いrefresh_token）でアクセスするとエラーを吐いているか
     refresh_api
     assert_response 401
 

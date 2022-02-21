@@ -44,7 +44,9 @@ class AccessTokenTest < ActionDispatch::IntegrationTest
     assert_equal UserAuth.token_audience, payload[:aud]
 
     # lifetime_textメソッドは想定通りか
-    assert_equal "30分", @encode.lifetime_text
+    assert_equal "5秒", @encode.lifetime_text
+    # TODO 本番反映時には「5秒」から以下のコードの「30分」に戻す！
+    # assert_equal "30分", @encode.lifetime_text
 
     # lifetimeキーがある場合、claimsの値が変わっているか
     time = 1
@@ -144,7 +146,7 @@ class AccessTokenTest < ActionDispatch::IntegrationTest
     assert_not not_active.activated
     encode_token = UserAuth::AccessToken.new(user_id: not_active.id).token
 
-    # アクティブではないユーザーも取得できているか
+    # アクティブではないユーザも取得できているか
     decode_token_user = UserAuth::AccessToken.new(token: encode_token).entity_for_user
 
     assert_equal not_active, decode_token_user
