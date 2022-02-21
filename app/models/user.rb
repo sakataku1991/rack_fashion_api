@@ -112,7 +112,12 @@ class User < ApplicationRecord
 
   # 共通のJSONレスポンスを返すメソッド
   def response_json(payload = {})
-    as_json(only: [:id, :name, :rack_id]).merge(payload).with_indifferent_access
+    as_json(only: [
+      :id,
+      :name,
+      :rack_id,
+      :email # TODO 後で消す！
+    ]).merge(payload).with_indifferent_access
   end
 
   private

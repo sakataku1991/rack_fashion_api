@@ -1,3 +1,5 @@
+# テストファイル上で共通して使えるメソッドのまとめ
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative "../config/environment"
 require "rails/test_help"

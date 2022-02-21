@@ -30,3 +30,4 @@
 .DS_Store
 /.ash_history
 /.irb_history
+.guard_history

@@ -37,7 +37,7 @@ class RefreshTokenTest < ActionDispatch::IntegrationTest
     verify_claims = decode.send(:verify_claims)
     assert verify_claims[:verify_expiration]
     assert_equal UserAuth.token_signature_algorithm,
-    verify_claims[:algorithm]
+                 verify_claims[:algorithm]
 
     # 有効期限後トークンはエラーを吐いているか
     travel_to (@lifetime.from_now) do
