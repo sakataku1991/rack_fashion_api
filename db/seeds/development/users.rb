@@ -1,3 +1,26 @@
+# 管理者権限を持つサンプルユーザー
+User.create!(
+  name: "admin",
+  rack_id: "rack_id_admin",
+  email: "admin@example.com",
+  password: "password",
+  admin: true,
+  activated: true,
+  activated_at: Time.zone.now
+)
+
+# ゲストユーザーのサンプルユーザー
+User.create!(
+  name: "guest",
+  rack_id: "rack_id_guest",
+  email: "guest@example.com",
+  password: "password",
+  guest: true,
+  activated: true,
+  activated_at: Time.zone.now
+)
+
+# 一覧表示用の一般のサンプルユーザー（10人分）
 10.times do |n|
   name = "user#{n}"
   rack_id = "rack_id#{n}"
@@ -9,7 +32,8 @@
     rack_id: rack_id,
     email: email,
     # TODO 「会員登録」機能の実装時には「false」に設定し直すこと！
-    activated: true
+    activated: true,
+    activated_at: Time.zone.now
   )
 
   if user.new_record?

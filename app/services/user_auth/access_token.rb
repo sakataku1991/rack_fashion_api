@@ -1,3 +1,4 @@
+## セッション管理に使用するトークン
 require 'jwt'
 
 module UserAuth

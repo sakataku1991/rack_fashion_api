@@ -5,12 +5,18 @@ require "validator/email_validator"
 
 class User < ApplicationRecord
 
+  # アクセサーの作成
+  attr_accessor :activation_token
+
   # Token生成モジュール
   include TokenGenerateService
 
   # 「RACK ID」と「メールアドレス」の小文字化
   before_validation :downcase_rack_id
   before_validation :downcase_email
+
+  # 新しいユーザーの作成時に「activation_digest」を同時に生成
+  before_create :create_activation_digest
 
   # 「has_secure_password」はgemのbcryptの機能
   # 新規会員登録時に動作するバリデーション
@@ -100,12 +106,12 @@ class User < ApplicationRecord
     users.find_by_activated_email(email).present?
   end
 
-  # リフレッシュトークンのJWT IDを記憶する
+  # 「リフレッシュトークン」のJWT IDを記憶する
   def remember(jti)
     update!(refresh_jti: jti)
   end
 
-  # リフレッシュトークンのJWT IDを削除する
+  # 「リフレッシュトークン」のJWT IDを削除する
   def forget
     update!(refresh_jti: nil)
   end
@@ -116,8 +122,28 @@ class User < ApplicationRecord
       :id,
       :name,
       :rack_id,
-      :email # TODO 後で消す！
+      :email, # TODO 後で消す！
+      :activated # TODO 後で消す！
     ]).merge(payload).with_indifferent_access
+  end
+
+  # 渡された文字列のハッシュ値を返す
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # ランダムなトークンを返す
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # トークンがダイジェストと一致したらtrueを返す
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   private
@@ -130,6 +156,12 @@ class User < ApplicationRecord
     # 「メールアドレス」の小文字化
     def downcase_email
       self.email.downcase! if email
+    end
+
+    # 有効化トークンとダイジェストを作成および代入する
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
     end
 
 end

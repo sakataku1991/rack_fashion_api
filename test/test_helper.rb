@@ -35,9 +35,14 @@ class ActiveSupport::TestCase
     { Authorization: "Bearer #{token}" }
   end
 
-  # 引数のparamsでログインを行う
+  # 引数のparamsでログインを行なう
   def login(params)
     post api("/auth_token"), xhr: true, params: params
+  end
+
+  # テストユーザーがログイン中の場合にtrueを返す
+  def is_logged_in?
+    !session[:user_id].nil?
   end
 
   # ログアウトapi
