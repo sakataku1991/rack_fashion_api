@@ -1,7 +1,4 @@
-class Api::V1::AuthTokenController < ApplicationController
-
-  ## 各種認証系のトークンを管理するコントローラー
-  # 「リフレッシュトークン」と「アクセストークン」の操作を行なう
+class AccountActivationsController < ApplicationController
 
   # ユーザーのセッション管理機能の呼び出し
   include UserSessionizeService
@@ -18,11 +15,28 @@ class Api::V1::AuthTokenController < ApplicationController
   # session_userを取得、存在しない場合は401を返す
   before_action :sessionize_user, only: [:refresh, :destroy]
 
-  # ログイン
-  def create
-    @user = login_user
-    set_refresh_token_to_cookie
-    render json: login_response
+  def edit
+    # 確認URLのパラメーター内にあるメールアドレスからユーザーを検索
+    user = User.find_by(email: params[:email])
+    # まだアクティブになっておらず、トークンとダイジェストが一致する場合は
+    if user && !user.activated? && user.authenticated?(:activation, params[:id])
+      # ユーザーの「activated」を「true」に変更し、
+      user.update_attribute(:activated, true)
+      # 「activated_at」を「確認URLに接続した時間」に更新
+      user.update_attribute(:activated_at, Time.zone.now)
+      # そしてユーザーをログイン状態にし
+      @user = login_user
+      set_refresh_token_to_cookie
+      render json: login_response
+      # flash[:success] = "Account activated!"
+      # そのユーザーのマイページを表示する
+      # redirect_to '/mypage'
+    # すでにアクティブなユーザー、もしくは、トークンとダイジェストが一致しなかった場合は
+    else
+      # flash[:danger] = "Invalid activation link"
+      # トップページへリダイレクトする
+      # redirect_to '/'
+    end
   end
 
   # リフレッシュ
@@ -32,26 +46,11 @@ class Api::V1::AuthTokenController < ApplicationController
     render json: login_response
   end
 
-  # ログアウト
-  def destroy
-    delete_session if session_user.forget
-    cookies[session_key].nil? ?
-      head(:ok) : response_500("Could not delete session")
-  end
-
   private
 
     # params[:email]からアクティブなユーザーを返す
     def login_user
-      @_login_user ||= User.find_by_activated_email(auth_params[:email])
-    end
-
-    # ログインユーザーが居ない、もしくはpasswordが一致しない場合404を返す
-    def authenticate
-      unless login_user.present? &&
-            login_user.authenticate(auth_params[:password])
-        raise UserAuth.not_found_exception_class
-      end
+      @_login_user ||= User.find_by(email: params[:email])
     end
 
     # refresh_tokenをcookieにセットする
@@ -118,14 +117,6 @@ class Api::V1::AuthTokenController < ApplicationController
     def invalid_jti
       msg = "Invalid jti for refresh token"
       render status: 401, json: { status: 401, error: msg }
-    end
-
-    # Strong Parameters の設定
-    def auth_params
-      params.require(:auth).permit(
-        :email,
-        :password
-      )
     end
 
 end

@@ -3,6 +3,7 @@
 require "test_helper"
 
 class Api::V1::AuthTokenControllerTest < ActionDispatch::IntegrationTest
+
   def setup
     @user = active_user
     @params = {

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::API
   # 認可を行なう
   include UserAuthenticateService
 
+  # TODO 以下2行のコメントは後で外すこと！
   # CSRF対策
   before_action :xhr_request?
 

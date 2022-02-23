@@ -10,7 +10,7 @@ module UserSessionizeService
     UserAuth.session_key
   end
 
-  # セッションcookieを削除する
+  # セッションCookieを削除する
   def delete_session
     cookies.delete(session_key)
   end

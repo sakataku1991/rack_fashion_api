@@ -1,3 +1,4 @@
+## 保護リソースアクセスする時に使用するトークン
 require 'jwt'
 
 module UserAuth
