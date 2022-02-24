@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_23_211604) do
+ActiveRecord::Schema.define(version: 2022_02_24_124513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 2022_02_23_211604) do
     t.string "refresh_jti"
     t.datetime "activated_at"
     t.string "activation_digest"
+    t.text "profile", default: "よろしくお願いします。", null: false
+    t.string "instagram"
+    t.string "twitter"
+    t.text "homepage"
   end
 
 end
