@@ -1,5 +1,6 @@
 table_names = %w(
   users
+  sexes
 )
 
 table_names.each do |table_name|

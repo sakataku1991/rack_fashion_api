@@ -1,5 +1,9 @@
 class Api::V1::UsersController < ApplicationController
 
+  before_action :set_user, only: [
+    :update
+  ]
+
   # ユーザーのセッション管理機能の呼び出し
   # Dir: /api/app/services/user_sessionize_service.rb
   include UserSessionizeService
@@ -68,6 +72,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # 「ユーザー」の更新
+  def update
+    if @user.update(user_params.except(:rack_id))
+      render json: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   # このclass内でのみ呼び出し可能なメソッド
   # この「users_controller.rb」内でのみ使える
   private
@@ -78,8 +91,17 @@ class Api::V1::UsersController < ApplicationController
         :name,
         :rack_id,
         :email,
-        :password
+        :password,
+        :profile,
+        :instagram,
+        :twitter,
+        :homepage
       )
+    end
+
+    def set_user
+      # @user = User.find(user_params[:rack_id])
+      @user = User.find(params[:id])
     end
 
     # ログイン

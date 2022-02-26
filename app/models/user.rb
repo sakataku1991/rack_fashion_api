@@ -160,6 +160,10 @@ class User < ApplicationRecord
       :name,
       :rack_id,
       :email, # TODO 後で消す！
+      :profile,
+      :instagram,
+      :twitter,
+      :homepage,
       :activated # TODO 後で消す！
     ]).merge(payload).with_indifferent_access
   end
