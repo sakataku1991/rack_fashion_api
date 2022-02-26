@@ -43,6 +43,7 @@ class Api::V1::UsersController < ApplicationController
           :id,
           :name,
           :rack_id,
+          :sex,
           :email, # TODO 後で消す！
           :profile,
           :instagram,
@@ -94,15 +95,18 @@ class Api::V1::UsersController < ApplicationController
     # Strong Parameters の設定
     def user_params
       params.require(:user).permit(
+        :id,
         :name,
         :rack_id,
-        :email,
+        :sex,
+        :email, # TODO 後で消す！
         :password,
         :profile,
         :instagram,
         :twitter,
         :homepage,
-        :avatar
+        :avatar,
+        :avatar_image_url
       )
     end
 

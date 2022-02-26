@@ -33,6 +33,10 @@ class User < ApplicationRecord
   # 新しいユーザーの作成時に「activation_digest」を同時に生成
   before_create :create_activation_digest
 
+  # 「ユーザー」に紐付いている「性別」（1対1）
+  has_one :user_sex_map, dependent: :destroy, foreign_key: 'user_id'
+  has_one :sex, through: :user_sex_map
+
   # 「has_secure_password」はgemのbcryptの機能
   # 新規会員登録時に動作するバリデーション
   # 1. passwordを暗号化する
@@ -170,6 +174,7 @@ class User < ApplicationRecord
       :id,
       :name,
       :rack_id,
+      :sex,
       :email, # TODO 後で消す！
       :profile,
       :instagram,

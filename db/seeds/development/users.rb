@@ -2,6 +2,7 @@
 User.create!(
   name: "admin",
   rack_id: "rack_id_admin",
+  # sex: 1,
   email: "admin@example.com",
   password: "password",
   admin: true,
@@ -13,6 +14,7 @@ User.create!(
 User.create!(
   name: "guest",
   rack_id: "rack_id_guest",
+  # sex: 1,
   email: "guest@example.com",
   password: "password",
   guest: true,
@@ -38,7 +40,9 @@ User.create!(
 
   if user.new_record?
     user.name = name
+    # user.sex = 1
     user.password = "password"
+    user.homepage = "https://www.rack-fashion.com/"
     user.save!
   end
 end
