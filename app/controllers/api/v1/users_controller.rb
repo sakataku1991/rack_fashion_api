@@ -44,10 +44,16 @@ class Api::V1::UsersController < ApplicationController
           :name,
           :rack_id,
           :email, # TODO 後で消す！
-          :created_at,
+          :profile,
+          :instagram,
+          :twitter,
+          :homepage,
+          :avatar,
+          :avatar_image_url,
+          :created_at, # TODO 後で消す！
           :activated # TODO 後で消す！
         ]
-      )
+      ), methods: [:avatar_image_url]
   end
 
   # 「ユーザー」の新規登録
@@ -75,7 +81,7 @@ class Api::V1::UsersController < ApplicationController
   # 「ユーザー」の更新
   def update
     if @user.update(user_params.except(:rack_id))
-      render json: @user
+      render json: @user, methods: [:avatar_image_url]
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -95,7 +101,8 @@ class Api::V1::UsersController < ApplicationController
         :profile,
         :instagram,
         :twitter,
-        :homepage
+        :homepage,
+        :avatar
       )
     end
 

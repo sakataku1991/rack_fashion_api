@@ -21,6 +21,9 @@ class User < ApplicationRecord
   # Token生成モジュール
   include TokenGenerateService
 
+  # ファイルのURLを取得するメソッド（画像など）
+  include Rails.application.routes.url_helpers
+
   # 小文字化の処理
   before_validation :downcase_rack_id
   before_validation :downcase_email
@@ -110,6 +113,14 @@ class User < ApplicationRecord
       allow_blank: true              # 「nil（空白文字）」の場合にはこの検証をスキップする
     }
 
+  # 「アバター（ユーザーのアイコン画像）」
+  has_one_attached :avatar
+
+  def avatar_image_url
+    # アバターの画像のURLを取得する
+    avatar.attached? ? url_for(avatar) : nil
+  end
+
 
   # methods ########################
 
@@ -164,6 +175,9 @@ class User < ApplicationRecord
       :instagram,
       :twitter,
       :homepage,
+      :avatar,
+      :avatar_image_url,
+      :created_at, # TODO 後で消す！
       :activated # TODO 後で消す！
     ]).merge(payload).with_indifferent_access
   end
