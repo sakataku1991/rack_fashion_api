@@ -1,7 +1,7 @@
 FROM ruby:2.7.2-alpine
 
 ARG WORKDIR
-ARG RUNTIME_PACKAGES="nodejs tzdata postgresql-dev postgresql git"
+ARG RUNTIME_PACKAGES="nodejs tzdata postgresql-dev postgresql git imagemagick"
 ARG DEV_PACKAGES="build-base curl-dev"
 
 ENV HOME=/${WORKDIR} \
