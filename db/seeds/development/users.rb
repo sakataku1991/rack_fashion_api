@@ -5,6 +5,9 @@ User.create!(
   # sex: 1,
   email: "admin@example.com",
   password: "password",
+  instagram: '',
+  twitter: '',
+  homepage: '',
   admin: true,
   activated: true,
   activated_at: Time.zone.now
@@ -17,6 +20,9 @@ User.create!(
   # sex: 1,
   email: "guest@example.com",
   password: "password",
+  instagram: '',
+  twitter: '',
+  homepage: '',
   guest: true,
   activated: true,
   activated_at: Time.zone.now
@@ -42,6 +48,8 @@ User.create!(
     user.name = name
     # user.sex = 1
     user.password = "password"
+    user.instagram = ""
+    user.twitter = ""
     user.homepage = "https://www.rack-fashion.com/"
     user.save!
   end

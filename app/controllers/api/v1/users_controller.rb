@@ -44,6 +44,9 @@ class Api::V1::UsersController < ApplicationController
           :name,
           :rack_id,
           :sex,
+          :sex_id,
+          :gender,
+          :code,
           :email, # TODO 後で消す！
           :profile,
           :instagram,

@@ -7,6 +7,7 @@ class Api::V1::SexesController < ApplicationController
       @sex.as_json(
         only: [
           :sex,
+          :gender,
           :code
         ]
       )
