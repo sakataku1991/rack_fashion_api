@@ -102,7 +102,7 @@ class Api::V1::UsersController < ApplicationController
         :name,
         :rack_id,
         :sex,
-        :email, # TODO 後で消す！
+        :email,
         :password,
         :profile,
         :instagram,
