@@ -47,7 +47,7 @@ class Api::V1::UsersController < ApplicationController
           :sex_id,
           :gender,
           :code,
-          :email, # TODO 後で消す！
+          :email,
           :profile,
           :instagram,
           :twitter,
