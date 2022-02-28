@@ -1,7 +1,17 @@
 # 「RACK ID」のカスタムバリデーションの呼び出し
 require "validator/rack_id_validator"
+
 # 「メールアドレス」のカスタムバリデーションの呼び出し
 require "validator/email_validator"
+
+# 「Instagramのユーザーネーム」のカスタムバリデーションの呼び出し
+require "validator/instagram_validator"
+
+# 「Twitterのユーザー名」のカスタムバリデーションの呼び出し
+require "validator/twitter_validator"
+
+# 「自分のWebサイト（ホームページ）」のカスタムバリデーションの呼び出し
+require "validator/homepage_validator"
 
 class User < ApplicationRecord
 
@@ -11,12 +21,21 @@ class User < ApplicationRecord
   # Token生成モジュール
   include TokenGenerateService
 
-  # 「RACK ID」と「メールアドレス」の小文字化
+  # ファイルのURLを取得するメソッド（画像など）
+  include Rails.application.routes.url_helpers
+
+  # 小文字化の処理
   before_validation :downcase_rack_id
   before_validation :downcase_email
+  before_validation :downcase_instagram
+  before_validation :downcase_twitter
 
   # 新しいユーザーの作成時に「activation_digest」を同時に生成
   before_create :create_activation_digest
+
+  # 「ユーザー」に紐付いている「性別」（1対1）
+  has_one :user_sex_map, dependent: :destroy, foreign_key: 'user_id'
+  has_one :sex, through: :user_sex_map
 
   # 「has_secure_password」はgemのbcryptの機能
   # 新規会員登録時に動作するバリデーション
@@ -73,6 +92,39 @@ class User < ApplicationRecord
     },
     allow_nil: true                  # 「nil（空白文字）」の場合にはこの検証をスキップする（「presence: true」とワンセット。パスワードが空欄でも問題ない時（ユーザー名を更新するだけの時など）に、このバリデーションを機能させない。）※ただしユーザーの新規会員登録時だけはbcryptのおかげでこのallow_nilを無視してちゃんと入力必須のバリデーションが効いてくれる。
 
+  # 「プロフィール」のバリデーション
+  validates :profile,
+    length: {                        # 文字数の制限
+      maximum: 160,                  # 最大文字数
+      allow_blank: true              # 「allow_blank: true」を付けることで、「nil（空白文字）」の場合にはこの検証をスキップする
+    }
+
+  # 「Instagramのユーザーネーム」のバリデーション
+  validates :instagram,
+    instagram: {                     # カスタムバリデーションの呼び出し
+      allow_blank: true              # 「nil（空白文字）」の場合にはこの検証をスキップする
+    }
+
+  # 「Twitterのユーザー名」のバリデーション
+  validates :twitter,
+    twitter: {                       # カスタムバリデーションの呼び出し
+      allow_blank: true              # 「nil（空白文字）」の場合にはこの検証をスキップする
+    }
+
+  # 「自分のWebサイト（ホームページ）」のバリデーション
+  validates :homepage,
+    homepage: {                      # カスタムバリデーションの呼び出し
+      allow_blank: true              # 「nil（空白文字）」の場合にはこの検証をスキップする
+    }
+
+  # 「アバター（ユーザーのアイコン画像）」
+  has_one_attached :avatar
+
+  def avatar_image_url
+    # アバターの画像のURLを取得する
+    avatar.attached? ? url_for(avatar) : nil
+  end
+
 
   # methods ########################
 
@@ -122,7 +174,18 @@ class User < ApplicationRecord
       :id,
       :name,
       :rack_id,
+      :sex,
+      :sex_id,
+      :gender,
+      :code,
       :email, # TODO 後で消す！
+      :profile,
+      :instagram,
+      :twitter,
+      :homepage,
+      :avatar,
+      :avatar_image_url,
+      :created_at, # TODO 後で消す！
       :activated # TODO 後で消す！
     ]).merge(payload).with_indifferent_access
   end
@@ -156,6 +219,16 @@ class User < ApplicationRecord
     # 「メールアドレス」の小文字化
     def downcase_email
       self.email.downcase! if email
+    end
+
+    # 「Instagramのユーザーネーム」の小文字化
+    def downcase_instagram
+      self.instagram.downcase! if instagram
+    end
+
+    # 「Twitterのユーザー名」の小文字化
+    def downcase_twitter
+      self.twitter.downcase! if twitter
     end
 
     # 有効化トークンとダイジェストを作成および代入する

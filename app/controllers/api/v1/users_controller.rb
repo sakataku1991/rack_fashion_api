@@ -1,5 +1,9 @@
 class Api::V1::UsersController < ApplicationController
 
+  before_action :set_user, only: [
+    :update
+  ]
+
   # ユーザーのセッション管理機能の呼び出し
   # Dir: /api/app/services/user_sessionize_service.rb
   include UserSessionizeService
@@ -39,11 +43,21 @@ class Api::V1::UsersController < ApplicationController
           :id,
           :name,
           :rack_id,
-          :email, # TODO 後で消す！
-          :created_at,
+          :sex,
+          :sex_id,
+          :gender,
+          :code,
+          :email,
+          :profile,
+          :instagram,
+          :twitter,
+          :homepage,
+          :avatar,
+          :avatar_image_url,
+          :created_at, # TODO 後で消す！
           :activated # TODO 後で消す！
         ]
-      )
+      ), methods: [:avatar_image_url]
   end
 
   # 「ユーザー」の新規登録
@@ -68,6 +82,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # 「ユーザー」の更新
+  def update
+    if @user.update(user_params.except(:rack_id))
+      render json: @user, methods: [:avatar_image_url]
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   # このclass内でのみ呼び出し可能なメソッド
   # この「users_controller.rb」内でのみ使える
   private
@@ -75,11 +98,24 @@ class Api::V1::UsersController < ApplicationController
     # Strong Parameters の設定
     def user_params
       params.require(:user).permit(
+        :id,
         :name,
         :rack_id,
-        :email,
-        :password
+        :sex,
+        :email, # TODO 後で消す！
+        :password,
+        :profile,
+        :instagram,
+        :twitter,
+        :homepage,
+        :avatar,
+        :avatar_image_url
       )
+    end
+
+    def set_user
+      # @user = User.find(user_params[:rack_id])
+      @user = User.find(params[:id])
     end
 
     # ログイン

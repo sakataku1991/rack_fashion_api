@@ -2,7 +2,7 @@ class RackIdValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     # record:    レコード（Userひとつ分の属性・値の全部入り）
     # attribute: 属性（rack_id:）
-    # value:     値（rack-chan）
+    # value:     値（rack_chan）
 
     # 文字数の制限
     # 最小文字数

@@ -2,12 +2,15 @@ ja:
   activerecord:
     attributes:
       user:
-        name: 名前
+        name: ユーザー名
         rack_id: RACK ID
         sex: 性別
         email: メールアドレス
-        profile: プロフィール
         password: パスワード
+        profile: プロフィール
+        instagram: Instagramのユーザーネーム
+        twitter: Twitterのユーザー名
+        homepage: 自分のWebサイト（ホームページ）
         activated: アクティブフラグ
         admin: 管理者フラグ
         guest: ゲストユーザーフラグ
@@ -143,6 +146,9 @@ ja:
       invalid: は不正な値です
       invalid_rack_id: は半角英数字・アンダースコアが使えます
       invalid_password: は半角英数字・ハイフン・アンダースコアが使えます
+      invalid_instagram: は半角英数字・アンダースコアが使えます
+      invalid_twitter: は半角英数字・ドット・アンダースコアが使えます
+      invalid_homepage: にはURLを入力してください
       less_than: は%{count}より小さい値にしてください
       less_than_or_equal_to: は%{count}以下の値にしてください
       model_invalid: 'バリデーションに失敗しました: %{errors}'

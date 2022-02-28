@@ -40,6 +40,14 @@ gem 'jwt', '~> 2.3'
 # JSONファイルの加工
 gem 'active_model_serializers', '~> 0.10.13'
 
+# 画像の加工（リサイズ）を行なう
+gem 'mini_magick', '~> 4.11'
+
+# 画像の加工（リサイズ）を行なう。「MiniMagick」とセットでインストール。
+gem 'image_processing', '~> 1.12', '>= 1.12.1'
+
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
