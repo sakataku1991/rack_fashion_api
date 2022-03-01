@@ -34,8 +34,8 @@ class User < ApplicationRecord
   before_create :create_activation_digest
 
   # 「ユーザー」に紐付いている「性別」（1対1）
-  has_one :user_sex_map, dependent: :destroy, foreign_key: 'user_id'
-  has_one :sex, through: :user_sex_map
+  has_many :user_sex_maps, dependent: :destroy, foreign_key: 'user_id'
+  has_many :sexes, through: :user_sex_maps
 
   # 「has_secure_password」はgemのbcryptの機能
   # 新規会員登録時に動作するバリデーション
@@ -178,7 +178,7 @@ class User < ApplicationRecord
       :sex_id,
       :gender,
       :code,
-      :email, # TODO 後で消す！
+      :email,
       :profile,
       :instagram,
       :twitter,

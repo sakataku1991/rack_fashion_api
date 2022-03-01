@@ -36,6 +36,7 @@ class Api::V1::UsersController < ApplicationController
 
   # 「ユーザー」の一覧の取得
   def index
+    # 「ユーザー」の情報
     @user = User.all
     render json:
       @user.as_json(
@@ -58,6 +59,14 @@ class Api::V1::UsersController < ApplicationController
           :activated # TODO 後で消す！
         ]
       ), methods: [:avatar_image_url]
+      # # 「性別」の情報
+      # @sex_list=Sex.all
+      # render json:
+      # @sex.as_json(
+      #   only: [
+      #     :code
+      #   ]
+      # )
   end
 
   # 「ユーザー」の新規登録
@@ -84,10 +93,22 @@ class Api::V1::UsersController < ApplicationController
 
   # 「ユーザー」の更新
   def update
+    sex_list=params[:user][:code].split(',')
     if @user.update(user_params.except(:rack_id))
+      @post.save_sex(sex_list)
       render json: @user, methods: [:avatar_image_url]
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  # 「ユーザー」の削除
+  def destroy
+    user = User.find(params[:id])
+    if user.destroy
+      render json: user
+    else
+      render json: { status: 400 }
     end
   end
 
@@ -102,6 +123,9 @@ class Api::V1::UsersController < ApplicationController
         :name,
         :rack_id,
         :sex,
+        :sex_id,
+        :gender,
+        :code,
         :email,
         :password,
         :profile,
