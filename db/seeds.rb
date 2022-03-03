@@ -1,8 +1,10 @@
 table_names = %w(
   users
   sexes
-  user_sex_maps
   questions
+  post_statuses
+  user_sex_maps
+  question_sex_maps
 )
 
 table_names.each do |table_name|
