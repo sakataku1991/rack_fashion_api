@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_26_213708) do
+ActiveRecord::Schema.define(version: 2022_03_03_042136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,41 @@ ActiveRecord::Schema.define(version: 2022_02_26_213708) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "post_statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_post_status_maps", force: :cascade do |t|
+    t.bigint "post_status_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_status_id"], name: "index_question_post_status_maps_on_post_status_id"
+    t.index ["question_id"], name: "index_question_post_status_maps_on_question_id"
+  end
+
+  create_table "question_sex_maps", force: :cascade do |t|
+    t.bigint "sex_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_question_sex_maps_on_question_id"
+    t.index ["sex_id"], name: "index_question_sex_maps_on_sex_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "image"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "sexes", force: :cascade do |t|
@@ -80,6 +115,11 @@ ActiveRecord::Schema.define(version: 2022_02_26_213708) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "question_post_status_maps", "post_statuses"
+  add_foreign_key "question_post_status_maps", "questions"
+  add_foreign_key "question_sex_maps", "questions"
+  add_foreign_key "question_sex_maps", "sexes"
+  add_foreign_key "questions", "users"
   add_foreign_key "user_sex_maps", "sexes"
   add_foreign_key "user_sex_maps", "users"
 end

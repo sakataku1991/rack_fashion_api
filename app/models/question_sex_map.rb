@@ -1,0 +1,2 @@
+class QuestionSexMap < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class QuestionPostStatusMap < ApplicationRecord
+end
