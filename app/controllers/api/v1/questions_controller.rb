@@ -3,26 +3,36 @@ class Api::V1::QuestionsController < ApplicationController
   # 有効なアクセストークンが投げられない限り、リソースにアクセスできないようになるアクション
   # before_action :authenticate_active_user
 
+  # 「質問」の一覧の取得
   def index
-    questions = []
-    date = Date.new(2021,4,1)
-    10.times do |n|
-      id = n + 1
-      name = "#{current_user.name} question #{id.to_s.rjust(2, "0")}"
-      author_rack_id = "#{current_user.rack_id}"
-      title = "質問のタイトル"
-      updated_at = date + (id * 6).hours
-      questions << {
-        id: id,
-        name: name,
-        author_rack_id: author_rack_id,
-        title: title,
-        updatedAt: updated_at
-      }
-    end
-    # updated_at = date + (id * 6).hours
-    # 本来はcurrent_user.questions
-    render json: questions
+    # 「質問」の情報
+    @question = Question.all
+    render json:
+      @question.as_json(
+        only: [
+          :id,
+          :user_id,
+          :title,
+          :body,
+          :created_at,
+          :updated_at
+        ]
+      )
   end
+
+  # このclass内でのみ呼び出し可能なメソッド
+  # この「questions_controller.rb」内でのみ使える
+  private
+
+    # Strong Parameters の設定
+    def question_params
+      params.require(:question).permit(
+        :id,
+        :user_id,
+        :image,
+        :title,
+        :body
+      )
+    end
 
 end
