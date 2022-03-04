@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       end
 
       get '/signup', to: 'users#create'
-      get '/mypage', to: 'mypage#show'
 
       # 「ユーザー」「users_controller.rb」
       resources :users, only: %i[index show new create edit update destroy]

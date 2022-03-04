@@ -38,7 +38,8 @@ class User < ApplicationRecord
   has_many :sexes, through: :user_sex_maps
 
   # 「ユーザー」に紐付いている複数の「質問」（1対多）
-  has_many :questions
+  # オプション: ユーザーの削除時に、そのユーザーの質問もすべて同時に削除する
+  has_many :questions, dependent: :destroy
 
   # 「has_secure_password」はgemのbcryptの機能
   # 新規会員登録時に動作するバリデーション
