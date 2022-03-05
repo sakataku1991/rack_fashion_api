@@ -3,23 +3,27 @@ Sex.create!(
   [
     # 不明
     {
-      gender: "not known",
-      code: 0
+      name: "not known",
+      code: 0,
+      alias: "null"
     },
     # 男性
     {
-      gender: "male",
-      code: 1
+      name: "male",
+      code: 1,
+      alias: "men"
     },
     # 女性
     {
-      gender: "female",
-      code: 2
+      name: "female",
+      code: 2,
+      alias: "women"
     },
     # その他
     {
-      gender: "not applicable",
-      code: 9
+      name: "not applicable",
+      code: 9,
+      alias: "other"
     }
   ]
 )
