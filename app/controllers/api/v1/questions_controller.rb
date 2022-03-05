@@ -2,22 +2,19 @@ module Api
   module V1
     class QuestionsController < ApplicationController
 
-      # 有効なアクセストークンが投げられない限り、リソースにアクセスできないようになるアクション
-      # before_action :authenticate_active_user
+      # 有効なアクセストークンが投げられない（＝ログインしていない）限り、リソースにアクセスできないようになるアクション
+      # before_action :authenticate_active_user, only: %i[new create edit update destroy]
 
       # 「質問」の一覧の取得
       def index
         # 「質問」の情報
-        @question = Question.all
+        @question = Question.all.includes(
+          :user
+        )
         render json:
           @question.as_json(
-            only: [
-              :id,
-              :user_id,
-              :title,
-              :body,
-              :created_at,
-              :updated_at
+            include: %i[
+              user
             ]
           )
       end
@@ -37,7 +34,8 @@ module Api
             :user_id,
             :image,
             :title,
-            :body
+            :body,
+            :created_at
           )
         end
 

@@ -42,23 +42,23 @@ module Api
         @user = User.all
         render json:
           @user.as_json(
-            only: [
-              :id,
-              :name,
-              :rack_id,
-              :sex,
-              :sex_id,
-              :gender,
-              :code,
-              :email,
-              :profile,
-              :instagram,
-              :twitter,
-              :homepage,
-              :avatar,
-              :avatar_image_url,
-              :created_at, # TODO 後で消す！
-              :activated # TODO 後で消す！
+            only: %i[
+              id
+              name
+              rack_id
+              sex
+              sex_id
+              gender
+              code
+              email
+              profile
+              instagram
+              twitter
+              homepage
+              avatar
+              avatar_image_url
+              created_at
+              activated
             ]
           ), methods: [:avatar_image_url]
           # # 「性別」の情報

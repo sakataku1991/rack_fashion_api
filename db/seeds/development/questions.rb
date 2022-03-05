@@ -1,5 +1,5 @@
 # 「質問」のサンプル投稿（12件分）
-Question.create!(
+question = Question.create!(
   [
     {
       user_id: 1,
