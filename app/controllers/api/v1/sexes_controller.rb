@@ -9,7 +9,7 @@ module Api
           @sex.as_json(
             only: [
               :sex,
-              :gender,
+              :name,
               :code
             ]
           )

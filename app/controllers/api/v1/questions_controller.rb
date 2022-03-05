@@ -10,13 +10,15 @@ module Api
         # 「質問」の情報
         @question = Question.all.includes(
           :user,
-          :sex
+          :sex,
+          :category
         )
         render json:
           @question.as_json(
             include: %i[
               user
               sex
+              category
             ]
           )
       end

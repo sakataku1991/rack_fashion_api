@@ -16,7 +16,15 @@ class Sex < ApplicationRecord
 
   # validates ########################
 
+  validates :name,
+    presence: true,
+    uniqueness: true
+
   validates :code,
+    presence: true,
+    uniqueness: true
+
+    validates :alias,
     presence: true,
     uniqueness: true
 

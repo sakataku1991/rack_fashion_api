@@ -13,6 +13,13 @@ class Question < ApplicationRecord
   has_one :sex,
     through: :question_sex_map
 
+  # 「質問」は必ずある一つの「カテゴリー」に紐付いている（1対1）
+  # オプション: 質問の削除時に、その質問のカテゴリーも同時に削除する
+  has_one :question_category_map,
+    dependent: :destroy
+  has_one :category,
+    through: :question_category_map
+
   # validates ########################
 
   # 「ユーザーID」のバリデーション
