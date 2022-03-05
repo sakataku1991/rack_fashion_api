@@ -9,12 +9,14 @@ module Api
       def index
         # 「質問」の情報
         @question = Question.all.includes(
-          :user
+          :user,
+          :sex
         )
         render json:
           @question.as_json(
             include: %i[
               user
+              sex
             ]
           )
       end

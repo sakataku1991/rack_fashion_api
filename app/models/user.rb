@@ -34,12 +34,16 @@ class User < ApplicationRecord
   before_create :create_activation_digest
 
   # 「ユーザー」に紐付いている「性別」（1対1）
-  has_many :user_sex_maps, dependent: :destroy, foreign_key: 'user_id'
-  has_many :sexes, through: :user_sex_maps
+  has_many :user_sex_maps,
+    dependent: :destroy,
+    foreign_key: 'user_id'
+  has_many :sexes,
+    through: :user_sex_maps
 
   # 「ユーザー」に紐付いている複数の「質問」（1対多）
   # オプション: ユーザーの削除時に、そのユーザーの質問もすべて同時に削除する
-  has_many :questions, dependent: :destroy
+  has_many :questions,
+    dependent: :destroy
 
   # 「has_secure_password」はgemのbcryptの機能
   # 新規会員登録時に動作するバリデーション

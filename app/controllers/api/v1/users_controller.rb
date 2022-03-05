@@ -72,6 +72,42 @@ module Api
           # )
       end
 
+      # # 「ユーザー」の一覧の取得
+      # def index
+      #   # 「ユーザー」の情報
+      #   @user = User.all
+      #   render json:
+      #     @user.as_json(
+      #       only: %i[
+      #         id
+      #         name
+      #         rack_id
+      #         sex
+      #         sex_id
+      #         gender
+      #         code
+      #         email
+      #         profile
+      #         instagram
+      #         twitter
+      #         homepage
+      #         avatar
+      #         avatar_image_url
+      #         created_at
+      #         activated
+      #       ]
+      #     ), methods: [:avatar_image_url]
+
+      #     # # 「性別」の情報
+      #     # @sex_list=Sex.all
+      #     # render json:
+      #     # @sex.as_json(
+      #     #   only: [
+      #     #     :code
+      #     #   ]
+      #     # )
+      # end
+
       # 「ユーザー」の新規登録
       def create
         # 新しいユーザーを作成
