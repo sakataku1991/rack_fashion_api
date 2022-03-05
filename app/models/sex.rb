@@ -1,6 +1,6 @@
 class Sex < ApplicationRecord
 
-  # 「性別」が紐付いている「ユーザー」（1対多）
+  # 「性別」が紐付いている「ユーザー」（多対多）
   has_many :user_sex_maps,
     dependent: :destroy,
     foreign_key: 'sex_id'
@@ -24,7 +24,7 @@ class Sex < ApplicationRecord
     presence: true,
     uniqueness: true
 
-    validates :alias,
+  validates :alias,
     presence: true,
     uniqueness: true
 

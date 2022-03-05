@@ -23,7 +23,7 @@ Sex.create!(
     {
       name: "not applicable",
       code: 9,
-      alias: "other"
+      alias: "others"
     }
   ]
 )

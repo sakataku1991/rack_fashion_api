@@ -11,7 +11,8 @@ module Api
         @question = Question.all.includes(
           :user,
           :sex,
-          :category
+          :category,
+          :color
         )
         render json:
           @question.as_json(
@@ -19,6 +20,7 @@ module Api
               user
               sex
               category
+              color
             ]
           )
       end

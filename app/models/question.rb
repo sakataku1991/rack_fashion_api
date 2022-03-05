@@ -20,6 +20,13 @@ class Question < ApplicationRecord
   has_one :category,
     through: :question_category_map
 
+  # 「質問」は必ずある一つの「色」に紐付いている（1対1）
+  # オプション: 質問の削除時に、その質問の色も同時に削除する
+  has_one :question_color_map,
+    dependent: :destroy
+  has_one :color,
+    through: :question_color_map
+
   # validates ########################
 
   # 「ユーザーID」のバリデーション

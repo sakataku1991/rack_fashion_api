@@ -4,10 +4,12 @@ table_names = %w(
   questions
   post_statuses
   categories
+  colors
   user_sex_maps
   question_sex_maps
   question_post_status_maps
   question_category_maps
+  question_color_maps
 )
 
 table_names.each do |table_name|
