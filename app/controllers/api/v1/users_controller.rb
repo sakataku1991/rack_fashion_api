@@ -61,6 +61,7 @@ module Api
               activated
             ]
           ), methods: [:avatar_image_url]
+
           # # 「性別」の情報
           # @sex_list=Sex.all
           # render json:
