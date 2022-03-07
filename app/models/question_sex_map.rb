@@ -1,9 +1,9 @@
 class QuestionSexMap < ApplicationRecord
 
-  # 「question_sex_map」は複数の「質問」と紐付いている
+  # 一つの「question_sex_map」は、ある一つの「質問」と
   belongs_to :question
 
-  # 「question_sex_map」は複数の「性別」と紐付いている
+  # ある一つの「性別」との関係性を示している
   belongs_to :sex
 
   # validates ########################

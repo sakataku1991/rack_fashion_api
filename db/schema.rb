@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_095718) do
+ActiveRecord::Schema.define(version: 2022_03_07_001707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,12 @@ ActiveRecord::Schema.define(version: 2022_03_05_095718) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "post_statuses", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
@@ -80,6 +86,15 @@ ActiveRecord::Schema.define(version: 2022_03_05_095718) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["color_id"], name: "index_question_color_maps_on_color_id"
     t.index ["question_id"], name: "index_question_color_maps_on_question_id"
+  end
+
+  create_table "question_hashtag_maps", force: :cascade do |t|
+    t.bigint "hashtag_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id"], name: "index_question_hashtag_maps_on_hashtag_id"
+    t.index ["question_id"], name: "index_question_hashtag_maps_on_question_id"
   end
 
   create_table "question_post_status_maps", force: :cascade do |t|
@@ -153,6 +168,8 @@ ActiveRecord::Schema.define(version: 2022_03_05_095718) do
   add_foreign_key "question_category_maps", "questions"
   add_foreign_key "question_color_maps", "colors"
   add_foreign_key "question_color_maps", "questions"
+  add_foreign_key "question_hashtag_maps", "hashtags"
+  add_foreign_key "question_hashtag_maps", "questions"
   add_foreign_key "question_post_status_maps", "post_statuses"
   add_foreign_key "question_post_status_maps", "questions"
   add_foreign_key "question_sex_maps", "questions"

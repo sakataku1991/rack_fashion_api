@@ -5,7 +5,7 @@ Sex.create!(
     {
       name: "not known",
       code: 0,
-      alias: "null"
+      alias: "unanswered"
     },
     # 男性
     {

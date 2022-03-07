@@ -27,6 +27,13 @@ class Question < ApplicationRecord
   has_one :color,
     through: :question_color_map
 
+  # 「質問」には複数の「ハッシュタグ」を紐付けることができる（1対多）
+  # オプション: 質問の削除時に、その質問のハッシュタグも同時に削除する
+  has_many :question_hashtag_maps,
+    dependent: :destroy
+  has_many :hashtags,
+    through: :question_hashtag_maps
+
   # validates ########################
 
   # 「ユーザーID」のバリデーション

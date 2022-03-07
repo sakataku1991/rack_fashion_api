@@ -1,9 +1,9 @@
 class QuestionCategoryMap < ApplicationRecord
 
-  # 「question_category_map」は複数の「質問」と紐付いている
+  # 一つの「question_category_map」は、ある一つの「質問」と
   belongs_to :question
 
-  # 「question_category_map」は複数の「カテゴリー」と紐付いている
+  # ある一つの「カテゴリー」との関係性を示している
   belongs_to :category
 
   # validates ########################

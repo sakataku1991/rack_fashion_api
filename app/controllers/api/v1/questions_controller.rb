@@ -12,7 +12,8 @@ module Api
           :user,
           :sex,
           :category,
-          :color
+          :color,
+          :hashtags
         )
         render json:
           @question.as_json(
@@ -21,6 +22,7 @@ module Api
               sex
               category
               color
+              hashtags
             ]
           )
       end
@@ -36,14 +38,17 @@ module Api
         # Strong Parameters の設定
         def question_params
           params.require(:question).permit(
-            :id,
-            :user_id,
             :image,
             :title,
             :body,
-            :created_at
+            :sex_id,
+            :category_id,
+            :color_id,
+            :hashtag_id
           )
         end
+
+            # { hashtag_ids: [] }).merge(user_id: current_user.id)
 
     end
   end

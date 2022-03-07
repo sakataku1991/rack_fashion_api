@@ -8,8 +8,8 @@ module Api
         render json:
           @sex.as_json(
             only: [
-              :sex,
-              :name,
+              :alias,
+              :code,
               :code
             ]
           )

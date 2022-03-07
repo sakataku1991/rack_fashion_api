@@ -1,13 +1,13 @@
 class Sex < ApplicationRecord
 
-  # 「性別」が紐付いている「ユーザー」（多対多）
+  # 「性別」が紐付いている「ユーザー」（1対多）
   has_many :user_sex_maps,
     dependent: :destroy,
     foreign_key: 'sex_id'
   has_many :users,
     through: :user_sex_maps
 
-  # 「性別」が紐付いている「質問」（多対多）
+  # 「性別」が紐付いている「質問」（1対多）
   has_many :question_sex_maps,
     dependent: :destroy,
     foreign_key: 'sex_id'

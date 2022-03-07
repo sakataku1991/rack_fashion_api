@@ -1,9 +1,9 @@
 class UserSexMap < ApplicationRecord
 
-  # 「user_sex_maps」は複数の「ユーザー」と紐付いている
+  # 一つの「user_sex_maps」は、ある一人の「ユーザー」と
   belongs_to :user
 
-  # 「user_sex_maps」は複数の「性別」と紐付いている
+  # ある一つの「性別」との関係性を示している
   belongs_to :sex
 
   # validates ########################
