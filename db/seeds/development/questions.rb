@@ -3,6 +3,7 @@ question = Question.create!(
   [
     {
       user_id: 1,
+      image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("db/seeds/development/dummy01.jpg")), filename: "dummy01.jpg"),
       title: "春のコート、何を買えばいいのか...",
       body: "こんにちは。今年はスプリングコートを買おうか迷っているのですが、みなさんはスプリングコートって何着くらい持っていますか？  また、今年買うならどういったタイプのコートがおすすめでしょうか？  色はベージュ系がいいです。"
     },

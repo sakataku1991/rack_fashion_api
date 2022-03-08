@@ -5,6 +5,9 @@ module Api
       # 有効なアクセストークンが投げられない（＝ログインしていない）限り、リソースにアクセスできないようになるアクション
       # before_action :authenticate_active_user, only: %i[new create edit update destroy]
 
+      # 画像のURLを取得するメソッド
+      include Rails.application.routes.url_helpers
+
       # 「質問」の一覧の取得
       def index
         # 「質問」の情報
@@ -41,6 +44,7 @@ module Api
             :image,
             :title,
             :body,
+            :user_id,
             :sex_id,
             :category_id,
             :color_id,
