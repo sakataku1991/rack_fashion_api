@@ -56,11 +56,10 @@ module Api
               twitter
               homepage
               avatar
-              avatar_image_url
               created_at
               activated
             ]
-          ), methods: [:avatar_image_url]
+          )
 
           # # 「性別」の情報
           # @sex_list=Sex.all

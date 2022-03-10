@@ -45,6 +45,13 @@ class Question < ApplicationRecord
   has_many :hashtags,
     through: :question_hashtag_maps
 
+  # 「質問」は必ずある一つの「公開状況」に紐付いている（1対1）
+  # オプション: 質問の削除時に、その質問の公開状況も同時に削除する
+  has_one :question_post_status_map,
+    dependent: :destroy
+  has_one :post_status,
+    through: :question_post_status_map
+
   # validates ########################
 
   # 「ユーザーID」のバリデーション
