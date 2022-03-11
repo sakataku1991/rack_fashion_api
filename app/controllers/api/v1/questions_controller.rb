@@ -36,17 +36,16 @@ module Api
       def show
       end
 
-      # 「質問」の新規登録
-      def new
-        @question = Question.new
-        @question.build_category
-      end
+      # # 「質問」の新規登録
+      # def new
+      #   @question = Question.new
+      #   # @question.build_category
+      # end
 
       # 「質問」の新規登録
       def create
         # 新しい質問を作成
         @question = Question.new(question_params)
-        @category = @question.build_question_category_map(question_category_map_params)
         # 送信された質問が保存できる場合
         if @question.save
           render json: @question, status: :created
@@ -68,16 +67,16 @@ module Api
             :image,
             :title,
             :body,
-            :sex,
+            :sex_id,
             :category_id,
-            :color,
+            :color_id,
             :hashtag,
-            :post_status
+            :post_status_id
           )
         end
 
         def question_category_map_params
-          params.require(:question_category_map).permit(
+          params.require(:question_category_map_params).permit(
             :question_id,
             :category_id
           )

@@ -19,24 +19,27 @@ class Question < ApplicationRecord
 
   # 「質問」は必ずある一つの「性別」に紐付いている（1対1）
   # オプション: 質問の削除時に、その質問の性別も同時に削除する
-  has_one :question_sex_map,
-    dependent: :destroy
-  has_one :sex,
-    through: :question_sex_map
+  # has_one :question_sex_map,
+  #   dependent: :destroy
+  # has_one :sex,
+  #   through: :question_sex_map
+  belongs_to :sex
 
   # 「質問」は必ずある一つの「カテゴリー」に紐付いている（1対1）
   # オプション: 質問の削除時に、その質問のカテゴリーも同時に削除する
-  has_one :question_category_map,
-    dependent: :destroy
-  has_one :category,
-    through: :question_category_map
+  # has_one :question_category_map,
+  #   dependent: :destroy
+  # has_one :category,
+  #   through: :question_category_map
+  belongs_to :category
 
   # 「質問」は必ずある一つの「色」に紐付いている（1対1）
   # オプション: 質問の削除時に、その質問の色も同時に削除する
-  has_one :question_color_map,
-    dependent: :destroy
-  has_one :color,
-    through: :question_color_map
+  # has_one :question_color_map,
+  #   dependent: :destroy
+  # has_one :color,
+  #   through: :question_color_map
+  belongs_to :color
 
   # 「質問」には複数の「ハッシュタグ」を紐付けることができる（1対多）
   # オプション: 質問の削除時に、その質問のハッシュタグも同時に削除する
@@ -47,10 +50,11 @@ class Question < ApplicationRecord
 
   # 「質問」は必ずある一つの「公開状況」に紐付いている（1対1）
   # オプション: 質問の削除時に、その質問の公開状況も同時に削除する
-  has_one :question_post_status_map,
-    dependent: :destroy
-  has_one :post_status,
-    through: :question_post_status_map
+  # has_one :question_post_status_map,
+  #   dependent: :destroy
+  # has_one :post_status,
+  #   through: :question_post_status_map
+  belongs_to :post_status
 
   # validates ########################
 

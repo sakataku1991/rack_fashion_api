@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_08_071846) do
+ActiveRecord::Schema.define(version: 2022_03_11_030622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,14 @@ ActiveRecord::Schema.define(version: 2022_03_08_071846) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "image"
+    t.bigint "category_id"
+    t.bigint "sex_id"
+    t.bigint "color_id"
+    t.bigint "post_status_id"
+    t.index ["category_id"], name: "index_questions_on_category_id"
+    t.index ["color_id"], name: "index_questions_on_color_id"
+    t.index ["post_status_id"], name: "index_questions_on_post_status_id"
+    t.index ["sex_id"], name: "index_questions_on_sex_id"
     t.index ["user_id", "created_at"], name: "index_questions_on_user_id_and_created_at", unique: true
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
@@ -174,6 +182,10 @@ ActiveRecord::Schema.define(version: 2022_03_08_071846) do
   add_foreign_key "question_post_status_maps", "questions"
   add_foreign_key "question_sex_maps", "questions"
   add_foreign_key "question_sex_maps", "sexes"
+  add_foreign_key "questions", "categories"
+  add_foreign_key "questions", "colors"
+  add_foreign_key "questions", "post_statuses"
+  add_foreign_key "questions", "sexes"
   add_foreign_key "questions", "users"
   add_foreign_key "user_sex_maps", "sexes"
   add_foreign_key "user_sex_maps", "users"
