@@ -75,13 +75,6 @@ module Api
           )
         end
 
-        def question_category_map_params
-          params.require(:question_category_map_params).permit(
-            :question_id,
-            :category_id
-          )
-        end
-
             # { hashtag_ids: [] }).merge(user_id: current_user.id)
 
     end
