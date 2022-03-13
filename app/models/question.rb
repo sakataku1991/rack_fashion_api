@@ -9,14 +9,6 @@ class Question < ApplicationRecord
   # 「質問」の「画像」
   mount_uploader :image, QuestionImageUploader
 
-  # 「質問」の「画像」
-  # has_one_attached :image
-
-  # 「質問」の「画像」のURLを取得する
-  # def image_url
-  #   image.attached? ? url_for(image) : nil
-  # end
-
   # 「質問」は必ずある一つの「性別」に紐付いている（1対1）
   # オプション: 質問の削除時に、その質問の性別も同時に削除する
   # has_one :question_sex_map,
