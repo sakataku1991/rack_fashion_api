@@ -1,2 +1,7 @@
-class Api::V1::UserSexMapsController < ApplicationController
+module Api
+  module V1
+    class UserSexMapsController < ApplicationController
+
+    end
+  end
 end

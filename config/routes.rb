@@ -3,25 +3,28 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       # 「AuthToken」「auth_token_controller.rb」
-      resources :auth_token, only:[:create] do
+      resources :auth_token, only: [:create] do
         post :refresh, on: :collection
         delete :destroy, on: :collection
       end
 
       get '/signup', to: 'users#create'
-      get '/mypage', to: 'mypage#show'
 
       # 「ユーザー」「users_controller.rb」
-      resources :users, only: %i[index show new create edit update destroy]
+      resources :users,
+        only: %i[index show new create edit update destroy]
 
       # 「質問」「questions_controller.rb」
-      resources :questions, only: %i[index show new create edit update destroy]
+      resources :questions,
+        only: %i[index show new create edit update destroy]
 
-      # 「性別」「user_sex_maps_controller.rb」
-      resources :sexs, only: %i[create update]
+      # 「性別」「sexes_controller.rb」
+      resources :sexs,
+        only: %i[create update]
 
-      # 「ユーザー」の「性別」
-      resources :user_sex_maps, only: %i[create update destroy]
+      # 「ユーザー」の「性別」「user_sex_maps_controller.rb」
+      resources :user_sex_maps,
+        only: %i[create update destroy]
 
     end
   end

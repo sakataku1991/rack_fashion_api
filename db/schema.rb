@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_26_213708) do
+ActiveRecord::Schema.define(version: 2022_03_11_030622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,103 @@ ActiveRecord::Schema.define(version: 2022_02_26_213708) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "sexes", force: :cascade do |t|
-    t.string "gender", null: false
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
     t.string "code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "colors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_category_maps", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_question_category_maps_on_category_id"
+    t.index ["question_id"], name: "index_question_category_maps_on_question_id"
+  end
+
+  create_table "question_color_maps", force: :cascade do |t|
+    t.bigint "color_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["color_id"], name: "index_question_color_maps_on_color_id"
+    t.index ["question_id"], name: "index_question_color_maps_on_question_id"
+  end
+
+  create_table "question_hashtag_maps", force: :cascade do |t|
+    t.bigint "hashtag_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id"], name: "index_question_hashtag_maps_on_hashtag_id"
+    t.index ["question_id"], name: "index_question_hashtag_maps_on_question_id"
+  end
+
+  create_table "question_post_status_maps", force: :cascade do |t|
+    t.bigint "post_status_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_status_id"], name: "index_question_post_status_maps_on_post_status_id"
+    t.index ["question_id"], name: "index_question_post_status_maps_on_question_id"
+  end
+
+  create_table "question_sex_maps", force: :cascade do |t|
+    t.bigint "sex_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_question_sex_maps_on_question_id"
+    t.index ["sex_id"], name: "index_question_sex_maps_on_sex_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
+    t.bigint "category_id"
+    t.bigint "sex_id"
+    t.bigint "color_id"
+    t.bigint "post_status_id"
+    t.index ["category_id"], name: "index_questions_on_category_id"
+    t.index ["color_id"], name: "index_questions_on_color_id"
+    t.index ["post_status_id"], name: "index_questions_on_post_status_id"
+    t.index ["sex_id"], name: "index_questions_on_sex_id"
+    t.index ["user_id", "created_at"], name: "index_questions_on_user_id_and_created_at", unique: true
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "sexes", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "alias", null: false
   end
 
   create_table "user_sex_maps", force: :cascade do |t|
@@ -80,6 +172,21 @@ ActiveRecord::Schema.define(version: 2022_02_26_213708) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "question_category_maps", "categories"
+  add_foreign_key "question_category_maps", "questions"
+  add_foreign_key "question_color_maps", "colors"
+  add_foreign_key "question_color_maps", "questions"
+  add_foreign_key "question_hashtag_maps", "hashtags"
+  add_foreign_key "question_hashtag_maps", "questions"
+  add_foreign_key "question_post_status_maps", "post_statuses"
+  add_foreign_key "question_post_status_maps", "questions"
+  add_foreign_key "question_sex_maps", "questions"
+  add_foreign_key "question_sex_maps", "sexes"
+  add_foreign_key "questions", "categories"
+  add_foreign_key "questions", "colors"
+  add_foreign_key "questions", "post_statuses"
+  add_foreign_key "questions", "sexes"
+  add_foreign_key "questions", "users"
   add_foreign_key "user_sex_maps", "sexes"
   add_foreign_key "user_sex_maps", "users"
 end

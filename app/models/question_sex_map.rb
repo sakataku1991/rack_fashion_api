@@ -1,14 +1,14 @@
-class UserSexMap < ApplicationRecord
+class QuestionSexMap < ApplicationRecord
 
-  # 一つの「user_sex_maps」は、ある一人の「ユーザー」と
-  belongs_to :user
+  # 一つの「question_sex_map」は、ある一つの「質問」と
+  belongs_to :question
 
   # ある一つの「性別」との関係性を示している
   belongs_to :sex
 
   # validates ########################
 
-  validates :user_id,
+  validates :question_id,
     presence: true
 
   validates :sex_id,
