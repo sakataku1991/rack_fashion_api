@@ -31,3 +31,4 @@
 /.ash_history
 /.irb_history
 .guard_history
+/public/uploads

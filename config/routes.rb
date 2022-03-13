@@ -18,11 +18,11 @@ Rails.application.routes.draw do
       resources :questions,
         only: %i[index show new create edit update destroy]
 
-      # 「性別」「user_sex_maps_controller.rb」
+      # 「性別」「sexes_controller.rb」
       resources :sexs,
         only: %i[create update]
 
-      # 「ユーザー」の「性別」
+      # 「ユーザー」の「性別」「user_sex_maps_controller.rb」
       resources :user_sex_maps,
         only: %i[create update destroy]
 
