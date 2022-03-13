@@ -18,4 +18,4 @@ UserSexMap.create!(
   )
 end
 
-puts "userSexMap = #{UserSexMap.count}"
+puts "userSexMaps = #{UserSexMap.count}"

@@ -40,6 +40,9 @@ gem 'jwt', '~> 2.3'
 # JSONファイルの加工
 gem 'active_model_serializers', '~> 0.10.13'
 
+# ファイル（画像など）のアップロード機能を追加してくれる
+gem 'carrierwave', '~> 2.0'
+
 # 画像の加工（リサイズ）を行なう
 gem 'mini_magick', '~> 4.11'
 

@@ -1,25 +1,31 @@
-# 不明
+# 「性別」の初期設定データ
 Sex.create!(
-  gender: "not known",
-  code: 0
-)
-
-# 男性
-Sex.create!(
-  gender: "male",
-  code: 1
-)
-
-# 女性
-Sex.create!(
-  gender: "female",
-  code: 2
-)
-
-# その他
-Sex.create!(
-  gender: "not applicable",
-  code: 9
+  [
+    # 不明
+    {
+      name: "not known",
+      code: 0,
+      alias: "unanswered"
+    },
+    # 男性
+    {
+      name: "male",
+      code: 1,
+      alias: "men"
+    },
+    # 女性
+    {
+      name: "female",
+      code: 2,
+      alias: "women"
+    },
+    # その他
+    {
+      name: "not applicable",
+      code: 9,
+      alias: "others"
+    }
+  ]
 )
 
 puts "sexes = #{Sex.count}"

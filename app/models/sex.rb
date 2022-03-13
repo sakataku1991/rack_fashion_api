@@ -1,10 +1,33 @@
 class Sex < ApplicationRecord
 
   # 「性別」が紐付いている「ユーザー」（1対多）
-  has_many :user_sex_maps, dependent: :destroy, foreign_key: 'sex_id'
-  has_many :users, through: :user_sex_maps
+  has_many :user_sex_maps,
+    dependent: :destroy,
+    foreign_key: 'sex_id'
+  has_many :users,
+    through: :user_sex_maps
 
-  validates :code, presence: true, uniqueness: true
+  # 「性別」が紐付いている「質問」（1対多）
+  # has_many :question_sex_maps,
+  #   dependent: :destroy,
+  #   foreign_key: 'sex_id'
+  # has_many :questions,
+  #   through: :question_sex_maps
+  has_many :questions
+
+  # validates ########################
+
+  validates :name,
+    presence: true,
+    uniqueness: true
+
+  validates :code,
+    presence: true,
+    uniqueness: true
+
+  validates :alias,
+    presence: true,
+    uniqueness: true
 
   def save_sex(sent_sexes)
     # 「性別」が存在していれば、「性別」の名前を配列として全て取得
