@@ -47,8 +47,10 @@ gem 'carrierwave', '~> 2.0'
 gem 'mini_magick', '~> 4.11'
 
 # 画像の加工（リサイズ）を行なう。「MiniMagick」とセットでインストール。
-gem 'image_processing', '~> 1.12', '>= 1.12.1'
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
 
+# Webスクレイピングができるようになるライブラリ
+gem 'nokogiri', '~> 1.13', '>= 1.13.3'
 
 
 group :development, :test do
