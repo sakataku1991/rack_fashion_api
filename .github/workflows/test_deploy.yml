@@ -8,19 +8,31 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+    - uses: actions/checkout@v2
 
-        - uses: ruby/setup-ruby@v1
-          with:
-            ruby-version: 2.7.2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.2
 
-        - name: Run bundle install
-          run: |
-            bundle config --local path vendor/bundle
-            bundle config --local without production
-            bundle install
+    - name: Cache bundle
+    uses: actions/cache@v2
+    with:
+      path: vendor/bundle
+      key: bundle-v1-${{ hashFiles('Gemfile.lock') }}
 
-        - run: RAILS_ENV=test bundle exec rails assets:precompile
+    - name: Run bundle install
+      run: |
+        bundle config --local path vendor/bundle
+        bundle config --local without production
+        bundle install
 
-        - run: bundle exec rails test
+    - name: Cache yarn
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: yarn-v1-${{ hashFiles('yarn.lock') }}
+
+    # - run: RAILS_ENV=test bundle exec rails assets:precompile
+
+    - run: bundle exec rails test
