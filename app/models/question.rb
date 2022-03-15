@@ -6,7 +6,7 @@ class Question < ApplicationRecord
   # 「質問」を新しい順で取得
   default_scope -> { order(created_at: :desc) }
 
-  # 「質問」の「画像」
+  # 「質問」の「画像」（CarrierWave）
   mount_uploader :image, QuestionImageUploader
 
   # 「質問」は必ずある一つの「性別」に紐付いている（1対1）

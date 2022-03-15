@@ -31,4 +31,5 @@
 /.ash_history
 /.irb_history
 .guard_history
-/public/uploads
+/vendor/*
+# /public/uploads
