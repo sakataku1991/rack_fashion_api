@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4'
+gem 'rails', '6.1.4.7'
 # Use postgresql as the database for Active Record
 gem 'pg', '1.3.2'
 # Use Puma as the app server
@@ -15,11 +15,8 @@ gem 'puma', '~> 5.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '1.11.1', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
@@ -31,7 +28,7 @@ gem 'hirb', '~> 0.7.3'
 gem 'hirb-unicode-steakknife', '~> 0.0.9'
 
 # パスワードを暗号化する
-gem 'bcrypt', '~> 3.1', '>= 3.1.16'
+gem 'bcrypt', '3.1.17'
 
 # JWT
 # Doc: https://rubygems.org/gems/jwt
